@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("https://img.freepik.com/premium-vector/space-background-with-stars-vector-illustration_97886-319.jpg?semt=ais_wordcount_boost&w=740&q=80");
+    background-repeat: repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    font-family: sans-serif;
+}
+
+.neo-city-container {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "header header header"
+                         "left-side main right-side"
+                         "footer footer footer";
+    min-height: 100vh;
+    gap: 20px;
+}
+
+header {
+    grid-area: header;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding-bottom: 10px;
+}
+
+.sidebar-left {
+    grid-area: left-side;
+    background-color: rgba(16, 18, 20, 0.8);
+    border: 1px solid white;
+    padding: 5px;
+}
+
+.sidebar-left img {
+    padding-left: 20px;
+}
+
+.content {
+    grid-area: main;
+    border: 1px solid white;
+    color: white;
+}
+
+.sidebar-right {
+    grid-area: right-side;
+    border: 1px solid white;
+    background-color: rgba(16, 18, 20, 0.8);
+}
+
+footer {
+    grid-area: footer;
+    background-color: blueviolet;
+}
