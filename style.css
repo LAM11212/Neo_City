@@ -57,6 +57,13 @@ header {
     grid-area: right-side;
     border: 1px solid white;
     background-color: rgba(16, 18, 20, 0.8);
+    color: white;
+}
+
+.sidebar-right img {
+    margin-top: 5px;
+    margin-left: 5px;
+    display: inline-block;
 }
 
 footer {
