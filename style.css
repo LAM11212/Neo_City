@@ -75,3 +75,14 @@ footer {
     grid-area: footer;
     background-color: blueviolet;
 }
+
+svg {
+  position: absolute;
+  width: 200px;
+  fill: rgb(0, 81, 255);
+}
+@media (max-width: 768px) {
+  svg {
+    width: 150px;
+  }
+}
