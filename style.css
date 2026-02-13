@@ -60,6 +60,11 @@ header {
     color: white;
 }
 
+#jumpscare {
+    height: 500px;
+    display: none;
+}
+
 .sidebar-right img {
     margin-top: 5px;
     margin-left: 5px;
