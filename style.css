@@ -51,6 +51,8 @@ header {
     grid-area: main;
     border: 1px solid white;
     color: white;
+    position: relative;
+    overflow: hidden;
 }
 
 .sidebar-right {
@@ -85,4 +87,8 @@ svg {
   svg {
     width: 150px;
   }
+}
+
+.logo {
+    position: absolute;
 }

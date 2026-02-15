@@ -2,11 +2,12 @@ const bat = document.getElementById("lilBat");
 const jumpscare = document.getElementById("jumpscare");
 let batClicked = false;
 const jumpscare_audio = new Audio('Old Foxy Jump Scare.mp3');
-const midSection = document.querySelector('main');
+const midSection = document.querySelector('.content');
+const leftSection = document.querySelector('.sidebar-left');
+const Section = document.querySelector('.sidebar-right');
 const logo = document.querySelector('.logo');
 const FPS = 60;
-midSection.style.height = window.innerHeight + "px";
-midSection.style.width = window.innerWidth + "px";
+
 
 // logo moving velocity
 let xPos = 10;
@@ -17,6 +18,8 @@ let yVel = 2;
 function update() {
     logo.style.left = xPos + "px";
     logo.style.top = yPos + "px";
+    console.log(midSection.clientWidth);
+    console.log(xPos);
 }
 
 setInterval(() => {
@@ -40,7 +43,6 @@ function newColor() {
     let blue = Math.floor(Math.random() * 256) + 1;
 
     let finalColor = "rgb(" +red.toString() + ", " + green.toString() + ", " + blue.toString() + ")";
-    console.log(finalColor);
     return finalColor;
 }
 
