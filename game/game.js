@@ -15,7 +15,7 @@ class Example extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.time.addEvent({
-            delay: 1500,
+            delay: 1700,
             callback: this.generateNewObstacle,
             callbackScope: this,
             loop: true
@@ -36,8 +36,8 @@ class Example extends Phaser.Scene {
     }
 
     generateNewObstacle() {
-        let minY = 50;
-        let maxY = 550;
+        let minY = 100;
+        let maxY = 500;
         let y = Phaser.Math.Between(minY, maxY);
 
         let block = this.obstacles.create(screenRight, y, 'obstacle');
