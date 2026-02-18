@@ -22,6 +22,7 @@ class GameOverScene extends Phaser.Scene {
         }).setOrigin(0.5).setInteractive();
 
         replayButton.on('pointerdown', () => {
+            data.score = 0;
             this.scene.start('Example');
         });
     }

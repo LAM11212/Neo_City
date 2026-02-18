@@ -1,10 +1,14 @@
 let screenRight = 600;
-let score = 0;
+
 class Example extends Phaser.Scene {
     constructor() {
         super('Example');
     }
-    
+
+    scoreText;
+    score = 0;
+    justScored = false;
+
     preload() {
         this.load.image('background', 'assets/space.png');
         this.load.image('player', 'assets/player.png');
@@ -12,6 +16,7 @@ class Example extends Phaser.Scene {
     }
 
     create() {
+
         this.add.image(0, 0, 'background').setScale(1.3);
         this.obstacles = this.physics.add.group();
         
@@ -28,6 +33,7 @@ class Example extends Phaser.Scene {
         this.isDead = false;
 
         this.physics.add.overlap(this.player, this.obstacles, this.killPlayer, null, this);
+        this.scoreText = this.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#000'});
     }
 
     update() {
@@ -44,27 +50,36 @@ class Example extends Phaser.Scene {
         this.obstacles.getChildren().forEach((block) => {
             if(block.x < -50) {
                 block.destroy();
+            } 
+
+            if(block.isTop && !block.scored && block.x < this.player.x) {
+                block.scored = true;
+                this.score++;
+                this.scoreText.setText('score: ' + this.score);
             }
         });
  
     }
 
     generateNewObstacle() {
-        let gapSize = 150;
+        let gapSize = 100;
         let minY = 100;
         let maxY = 500;
         let y = Phaser.Math.Between(minY, maxY);
 
         let topBlock = this.obstacles.create(screenRight, y - gapSize/2, 'obstacle');
-        topBlock.setOrigin(0.5, 1);
+        topBlock.setOrigin(0.5, 1).setScale(1, 15);
         topBlock.body.allowGravity = false;
         topBlock.setVelocityX(-200);
+        topBlock.scored = false;
+        topBlock.isTop = true;
 
         let bottomBlock = this.obstacles.create(screenRight, y + gapSize/2, 'obstacle');
-        bottomBlock.setOrigin(0.5, 0);
+        bottomBlock.setOrigin(0.5, 0).setScale(1, 15);
         bottomBlock.body.allowGravity = false;
         bottomBlock.setVelocityX(-200);
-
+        bottomBlock.scored = false;
+            
     }
 
     killPlayer() {
