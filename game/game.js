@@ -1,10 +1,14 @@
 let screenRight = 600;
-
+let score = 0;
 class Example extends Phaser.Scene {
+    constructor() {
+        super('Example');
+    }
+    
     preload() {
         this.load.image('background', 'assets/space.png');
         this.load.image('player', 'assets/player.png');
-        this.load.image('obstacle', 'assets/testObstacle.png');
+        this.load.image('obstacle', 'assets/Obstacle.png');
     }
 
     create() {
@@ -20,12 +24,22 @@ class Example extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
+
+        this.isDead = false;
+
+        this.physics.add.overlap(this.player, this.obstacles, this.killPlayer, null, this);
     }
 
     update() {
+        if(this.isDead) return;
         if(this.cursors.space.isDown) {
             this.player.setVelocityY(-200);
         } 
+
+        if(this.player.y > 600 || this.player.y < 0) {
+            console.log("player dead");
+            this.killPlayer();
+        }
 
         this.obstacles.getChildren().forEach((block) => {
             if(block.x < -50) {
@@ -36,15 +50,30 @@ class Example extends Phaser.Scene {
     }
 
     generateNewObstacle() {
+        let gapSize = 150;
         let minY = 100;
         let maxY = 500;
         let y = Phaser.Math.Between(minY, maxY);
 
-        let block = this.obstacles.create(screenRight, y, 'obstacle');
-        block.body.allowGravity = false;
-        block.setVelocityX(-200);
+        let topBlock = this.obstacles.create(screenRight, y - gapSize/2, 'obstacle');
+        topBlock.setOrigin(0.5, 1);
+        topBlock.body.allowGravity = false;
+        topBlock.setVelocityX(-200);
 
-        return block;
+        let bottomBlock = this.obstacles.create(screenRight, y + gapSize/2, 'obstacle');
+        bottomBlock.setOrigin(0.5, 0);
+        bottomBlock.body.allowGravity = false;
+        bottomBlock.setVelocityX(-200);
+
+    }
+
+    killPlayer() {
+        this.isDead = true;
+        this.physics.pause();
+
+        this.scene.start('GameOverScene', {
+            score: this.score,
+        });
     }
 }
 
@@ -59,7 +88,7 @@ const config = {
             debug: false
         }
     },
-    scene: Example
+    scene: [Example, GameOverScene]
 };
 
 const game = new Phaser.Game(config);
