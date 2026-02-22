@@ -11,16 +11,16 @@ class Example extends Phaser.Scene {
 
     preload() {
         this.load.image('background', 'assets/space.png');
-        this.load.image('player', 'assets/player.png');
+        this.load.image('player', 'assets/player_stationary.png');
         this.load.image('obstacle', 'assets/Obstacle.png');
+        this.load.image('player_jump', 'assets/player_jumping.png');
     }
 
     create() {
-
         this.add.image(0, 0, 'background').setScale(1.3);
         this.obstacles = this.physics.add.group();
         
-        this.player = this.physics.add.sprite(50, 50, 'player').setScale(2);
+        this.player = this.physics.add.sprite(50, 50, 'player').setScale(0.5);
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.time.addEvent({
@@ -40,7 +40,10 @@ class Example extends Phaser.Scene {
         if(this.isDead) return;
         if(this.cursors.space.isDown) {
             this.player.setVelocityY(-200);
-        } 
+            this.player.setTexture('player_jump');
+        } else {
+            this.player.setTexture('player');
+        }
 
         if(this.player.y > 600 || this.player.y < 0) {
             console.log("player dead");
@@ -96,6 +99,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    parent: 'game-container',
     physics: {
         default: 'arcade',
         arcade: {
