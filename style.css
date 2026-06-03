@@ -53,6 +53,8 @@ header {
     color: white;
     position: relative;
     overflow: hidden;
+    text-align: center;
+    color: gray;
 }
 
 .sidebar-right {
